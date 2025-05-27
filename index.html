@@ -28,7 +28,7 @@
         // 完整导航加载实现
         const loadNavigation = async () => {
             try {
-                const response = await fetch('/src/nav.json');
+                const response = await fetch('/photography/src/nav.json');
                 if (!response.ok) throw new Error(`HTTP错误 ${response.status}`);
                 
                 const navData = await response.json();
