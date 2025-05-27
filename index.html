@@ -1,52 +1,69 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>胜明的摄影笔记</title>
-  <link rel="stylesheet" href="assets/css/main.css">
-  <style>
-    .hero {
-      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-      padding: 4rem 2rem;
-      text-align: center;
-    }
-    .nav-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 1rem;
-      padding: 2rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>摄影学习笔记</title>
+    <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-content">
-      <h1>📸 胜明的摄影笔记</h1>
-      <nav id="dynamic-nav"></nav>
-    </div>
-  </header>
+    <header class="site-header">
+        <h1>摄影学习笔记</h1>
+        <nav id="main-nav"></nav>
+    </header>
 
-  <main>
-    <section class="hero">
-      <h2>从零开始记录摄影学习历程</h2>
-      <p>系统整理摄影基础知识与实战技巧</p>
-    </section>
+    <main class="content-container">
+        <!-- 动态导航卡片容器 -->
+        <div class="nav-cards" id="nav-container">
+            <!-- 导航卡片通过JS动态加载 -->
+        </div>
 
-    <div class="nav-grid">
-      <a href="tutorials/exposure.html" class="card">
-        <h3>曝光三要素</h3>
-        <p>光圈/快门/ISO深度解析</p>
-      </a>
-      <!-- 其他导航卡片 -->
-    </div>
-  </main>
+        <!-- 内容展示区 -->
+        <article class="content-area" id="content-main">
+            <h2>欢迎来到摄影学习空间</h2>
+            <p>选择左侧导航项开始学习...</p>
+        </article>
+    </main>
 
-<script>
-  // 修改后路径（去掉public层级）
-  fetch('/src/nav.json')
-    .then(response => response.json())
-    .then(data => {
-      // 保持原有动态加载逻辑
-    });
-</script>
+    <script>
+        // 完整导航加载实现
+        const loadNavigation = async () => {
+            try {
+                const response = await fetch('/src/nav.json');
+                if (!response.ok) throw new Error(`HTTP错误 ${response.status}`);
+                
+                const navData = await response.json();
+                const navContainer = document.getElementById('nav-container');
+                const mainNav = document.getElementById('main-nav');
+
+                // 生成主导航
+                mainNav.innerHTML = navData.map(item => 
+                    `<a href="${item.link}" class="nav-item">${item.title}</a>`
+                ).join('');
+
+                // 生成导航卡片
+                navContainer.innerHTML = navData.map(item => `
+                    <div class="nav-card">
+                        <a href="${item.link}">
+                            <h3>${item.title}</h3>
+                            <p>${item.description || ''}</p>
+                        </a>
+                    </div>
+                `).join('');
+
+            } catch (error) {
+                console.error('导航加载失败:', error);
+                document.getElementById('nav-container').innerHTML = `
+                    <div class="error-alert">
+                        <h3>⚠️ 导航加载失败</h3>
+                        <p>${error.message}</p>
+                        <button onclick="location.reload()">点击重试</button>
+                    </div>
+                `;
+            }
+        };
+
+        // 页面加载完成后执行
+        window.addEventListener('DOMContentLoaded', loadNavigation);
+    </script>
+</body>
+</html>
