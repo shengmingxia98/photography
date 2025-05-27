@@ -4,56 +4,129 @@
     <meta charset="UTF-8">
     <title>摄影学习笔记</title>
     <link rel="stylesheet" href="/assets/css/main.css">
+    <style>
+        /* 临时应急样式 */
+        .nav-loading {
+            padding: 2rem;
+            text-align: center;
+        }
+        .nav-error {
+            background: #fff3f3;
+            border: 2px solid #ff6b6b;
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem;
+        }
+    </style>
 </head>
 <body>
     <header class="site-header">
         <h1>摄影学习笔记</h1>
-        <nav id="main-nav"></nav>
+        <nav id="main-nav">
+            <div class="nav-loading">加载导航中...</div>
+        </nav>
     </header>
 
     <main class="content-container">
-        <!-- 动态导航卡片容器 -->
-        <div class="nav-cards" id="nav-container">
-            <!-- 导航卡片通过JS动态加载 -->
-        </div>
-
-        <!-- 内容展示区 -->
-        <article class="content-area" id="content-main">
+        <div id="nav-container" class="nav-cards"></div>
+        <article class="content-area">
             <h2>欢迎来到摄影学习空间</h2>
-            <p>选择左侧导航项开始学习...</p>
+            <p>选择导航卡片开始学习</p>
         </article>
     </main>
 
     <script>
-        const loadNavigation = async () => {
-            try {
-                const response = await fetch('/src/nav.json');
-                const { menu } = await response.json(); // 解构menu数组
+        (function() {
+            // 环境检测（开发/生产）
+            const isProduction = location.hostname === 'shengmingxia98.github.io';
+            const NAV_JSON_PATH = isProduction 
+                ? '/photography/src/nav.json'
+                : '/src/nav.json';
 
-                // 统一使用menu属性
-                document.getElementById('nav-container').innerHTML = menu.map(item => `
-                  <div class="nav-card">
-                    <a href="${item.url}">
-                      <h3>${item.title}</h3>
-                      ${item.description ? `<p>${item.description}</p>` : ''}
-                    </a>
-                  </div>
-                `).join('');
+            // 核心加载函数
+            const loadNavigation = async () => {
+                try {
+                    // 显示加载状态
+                    document.getElementById('main-nav').innerHTML = 
+                        '<div class="nav-loading">正在加载导航数据...</div>';
 
-                // 更新错误提示
+                    // 带超时的fetch请求
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+                    const response = await fetch(NAV_JSON_PATH, {
+                        signal: controller.signal
+                    });
+                    clearTimeout(timeoutId);
+
+                    // HTTP状态验证
+                    if (!response.ok) {
+                        throw new Error(`HTTP错误 ${response.status}`);
+                    }
+
+                    // 内容类型验证
+                    const contentType = response.headers.get('content-type');
+                    if (!contentType || !contentType.includes('application/json')) {
+                        throw new Error('响应不是有效的JSON格式');
+                    }
+
+                    // 解析并验证数据结构
+                    const { menu } = await response.json();
+                    if (!Array.isArray(menu)) {
+                        throw new Error('nav.json数据结构异常');
+                    }
+
+                    // 渲染导航
+                    renderNavigation(menu);
+
+                } catch (error) {
+                    handleNavigationError(error);
+                }
+            };
+
+            // 导航渲染函数
+            const renderNavigation = (menu) => {
+                // 主导航栏
+                document.getElementById('main-nav').innerHTML = menu
+                    .map(item => `<a href="${item.url}" class="nav-item">${item.title}</a>`)
+                    .join('');
+
+                // 导航卡片
+                document.getElementById('nav-container').innerHTML = menu
+                    .map(item => `
+                        <div class="nav-card">
+                            <a href="${item.url}">
+                                <h3>${item.title}</h3>
+                                ${item.description ? `<p>${item.description}</p>` : ''}
+                            </a>
+                        </div>
+                    `)
+                    .join('');
+            };
+
+            // 错误处理函数
+            const handleNavigationError = (error) => {
+                console.error('导航加载失败:', error);
                 const errorHTML = `
-                  <div class="error-alert">
-                    <h3>数据结构异常</h3>
-                    <p>请确认src/nav.json包含有效的menu数组</p>
-                    <pre>${JSON.stringify(navData, null, 2)}</pre>
-                  </div>
+                    <div class="nav-error">
+                        <h3>⚠️ 导航加载失败</h3>
+                        <p>${error.message}</p>
+                        <p>请尝试：</p>
+                        <ul>
+                            <li>检查网络连接</li>
+                            <li>刷新页面（Command + R）</li>
+                            <li>访问 <a href="${NAV_JSON_PATH}" target="_blank">nav.json</a> 验证文件可访问性</li>
+                        </ul>
+                        <button onclick="window.location.reload()">点击重试</button>
+                    </div>
                 `;
-            }
-        }
-        </script>
+                document.getElementById('main-nav').innerHTML = errorHTML;
+                document.getElementById('nav-container').innerHTML = errorHTML;
+            };
 
-        // 页面加载完成后执行
-        window.addEventListener('DOMContentLoaded', loadNavigation);
+            // 初始化加载
+            window.addEventListener('DOMContentLoaded', loadNavigation);
+        })();
     </script>
 </body>
 </html>
