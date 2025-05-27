@@ -28,22 +28,28 @@
   <div class="container mx-auto p-4 max-w-3xl sm:max-w-xl">
 <div id="nav-container"></div>
 <script>
-  fetch('nav.json')
+  fetch('/src/nav.json')
     .then(response => response.json())
     .then(data => {
-      const nav = document.createElement('nav');
-      nav.className = 'bg-white rounded-lg p-4 mb-6 shadow-lg';
+      const navContainer = document.createElement('nav');
+      navContainer.className = 'main-nav';
       const ul = document.createElement('ul');
-      ul.className = 'flex space-x-4 justify-center';
+      ul.className = 'nav-list';
+      
       data.forEach(item => {
         const li = document.createElement('li');
-        li.innerHTML = `<a href="${item.url}" class="text-teal-500 hover:underline">${item.title}</a>`;
+        const link = document.createElement('a');
+        link.href = item.url;
+        link.textContent = item.title;
+        link.className = 'nav-link';
+        li.appendChild(link);
         ul.appendChild(li);
       });
-      nav.appendChild(ul);
-      document.getElementById('nav-container').innerHTML = nav.outerHTML;
+
+      navContainer.appendChild(ul);
+      document.getElementById('dynamic-nav').appendChild(navContainer);
     })
-    .catch(error => console.error('Error loading nav:', error));
+    .catch(error => console.error('导航加载失败:', error));
 </script>
     <h1 class="text-3xl font-bold text-center gradient-title mb-4">
       📸 摄影小白必看：曝光三要素 ✨

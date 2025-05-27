@@ -44,7 +44,7 @@
 
   <script>
     // 动态加载导航（保留原有nav.json集成方式）
-    fetch('../src/nav.json')
+    fetch('/src/nav.json')
       .then(res => res.json())
       .then(data => {
         const nav = document.createElement('ul');
