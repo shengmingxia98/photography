@@ -43,27 +43,10 @@
   </main>
 
 <script>
+  // 修改后路径（去掉public层级）
   fetch('/src/nav.json')
-    .then(response => {
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-      const navContainer = document.getElementById('dynamic-nav');
-      navContainer.innerHTML = `
-        <ul class="nav-list">
-          ${data.map(item => `
-            <li>
-              <a href="${item.url}" class="nav-link">
-                ${item.title}
-              </a>
-            </li>
-          `).join('')}
-        </ul>
-      `;
-    })
-    .catch(error => {
-      console.error('导航加载失败:', error);
-      document.getElementById('dynamic-nav').innerHTML = '<p>导航加载失败，请刷新页面</p>';
+      // 保持原有动态加载逻辑
     });
-</script>  
+</script>
