@@ -42,23 +42,28 @@
     </div>
   </main>
 
-  <script>
-    // 动态加载导航（保留原有nav.json集成方式）
-    fetch('/src/nav.json')
-      .then(res => res.json())
-      .then(data => {
-        const nav = document.createElement('ul');
-        nav.className = 'main-nav';
-        data.forEach(item => {
-          nav.innerHTML += `
+<script>
+  fetch('/src/nav.json')
+    .then(response => {
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      return response.json();
+    })
+    .then(data => {
+      const navContainer = document.getElementById('dynamic-nav');
+      navContainer.innerHTML = `
+        <ul class="nav-list">
+          ${data.map(item => `
             <li>
               <a href="${item.url}" class="nav-link">
                 ${item.title}
               </a>
-            </li>`;
-        });
-        document.getElementById('dynamic-nav').appendChild(nav);
-      });
-  </script>
-</body>
-</html>
+            </li>
+          `).join('')}
+        </ul>
+      `;
+    })
+    .catch(error => {
+      console.error('导航加载失败:', error);
+      document.getElementById('dynamic-nav').innerHTML = '<p>导航加载失败，请刷新页面</p>';
+    });
+</script>  
