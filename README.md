@@ -1,2 +1,5 @@
-# shengming.github.io
-Photography tutorial website
+# 摄影学习笔记
+
+📷 这里是胜明的摄影学习记录，持续学习中......
+
+👉 使用左侧导航栏开始学习

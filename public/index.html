@@ -3,48 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>摄影小白教程</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>胜明的摄影笔记</title>
+  <link rel="stylesheet" href="assets/css/main.css">
   <style>
-    .gradient-title {
-      background: linear-gradient(to right, #ff6b6b, #4ecdc4);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .hero {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      padding: 4rem 2rem;
+      text-align: center;
     }
-    .divider {
-      border-top: 2px dotted #d1d5db;
-      margin: 1.5rem 0;
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      padding: 2rem;
     }
-    * { box-sizing: border-box; }
-    body { overflow-x: hidden; }
   </style>
 </head>
-<body class="bg-gray-100 font-sans text-gray-800">
-  <div class="container mx-auto p-4 max-w-3xl sm:max-w-xl">
-    <nav class="bg-white rounded-lg p-4 mb-6 shadow-lg">
-<div id="nav-container"></div>
-<script>
-  fetch('nav.json')
-    .then(response => response.json())
-    .then(data => {
-      const nav = document.createElement('nav');
-      nav.className = 'bg-white rounded-lg p-4 mb-6 shadow-lg';
-      const ul = document.createElement('ul');
-      ul.className = 'flex space-x-4 justify-center';
-      data.forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="${item.url}" class="text-teal-500 hover:underline">${item.title}</a>`;
-        ul.appendChild(li);
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <h1>📸 胜明的摄影笔记</h1>
+      <nav id="dynamic-nav"></nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h2>从零开始记录摄影学习历程</h2>
+      <p>系统整理摄影基础知识与实战技巧</p>
+    </section>
+
+    <div class="nav-grid">
+      <a href="tutorials/exposure.html" class="card">
+        <h3>曝光三要素</h3>
+        <p>光圈/快门/ISO深度解析</p>
+      </a>
+      <!-- 其他导航卡片 -->
+    </div>
+  </main>
+
+  <script>
+    // 动态加载导航（保留原有nav.json集成方式）
+    fetch('../src/nav.json')
+      .then(res => res.json())
+      .then(data => {
+        const nav = document.createElement('ul');
+        nav.className = 'main-nav';
+        data.forEach(item => {
+          nav.innerHTML += `
+            <li>
+              <a href="${item.url}" class="nav-link">
+                ${item.title}
+              </a>
+            </li>`;
+        });
+        document.getElementById('dynamic-nav').appendChild(nav);
       });
-      nav.appendChild(ul);
-      document.getElementById('nav-container').innerHTML = nav.outerHTML;
-    })
-    .catch(error => console.error('Error loading nav:', error));
-</script>
-    <h1 class="text-3xl font-bold text-center gradient-title mb-4">
-      📸 欢迎体验摄影小白教程 ✨
-    </h1>
-    <p class="text-center text-lg mb-6">从曝光到机位，快速入门摄影，拍出惊艳大片！</p>
-  </div>
+  </script>
 </body>
 </html>
