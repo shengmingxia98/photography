@@ -1,0 +1,10 @@
+{
+"menu": [
+  {"title": "首页", "url": "index.html"},
+  {"title": "曝光三要素", "url": "exposure.html"},
+  {"title": "认识镜头", "url": "lens.html"},
+  {"title": "器材介绍", "url": "equipment.html"},
+  {"title": "拍摄机位", "url": "position.html"},
+  {"title": "人像美姿", "url": "pose.html"}
+]
+}

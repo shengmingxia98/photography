@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>摄影小白必看：人像美姿</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-title {
+      background: linear-gradient(to right, #ff6b6b, #4ecdc4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .divider {
+      border-top: 2px dotted #d1d5db;
+      margin: 1.5rem 0;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800">
+  <div class="container mx-auto p-4 max-w-3xl sm:max-w-xl">
+<div id="nav-container"></div>
+<script>
+  fetch('nav.json')
+    .then(response => response.json())
+    .then(data => {
+      const nav = document.createElement('nav');
+      nav.className = 'bg-white rounded-lg p-4 mb-6 shadow-lg';
+      const ul = document.createElement('ul');
+      ul.className = 'flex space-x-4 justify-center';
+      data.forEach(item => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="${item.url}" class="text-teal-500 hover:underline">${item.title}</a>`;
+        ul.appendChild(li);
+      });
+      nav.appendChild(ul);
+      document.getElementById('nav-container').innerHTML = nav.outerHTML;
+    })
+    .catch(error => console.error('Error loading nav:', error));
+</script>
+    <h1 class="text-3xl font-bold text-center gradient-title mb-4">
+      📸 摄影小白必看：人像美姿 ✨
+    </h1>
+    <p class="text-center text-lg mb-6">点线面规律，打造自然优美的人像姿势！超实用笔记，拍出高级感！</p>
+
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+      <h2 class="text-2xl font-semibold gradient-title flex items-center">
+        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+        1. 培养看面的眼光：脸面、胸面、腿面
+      </h2>
+      <div class="divider">🌟</div>
+      <p><strong>核心</strong>：通过调整脸面、胸面、腿面，保证姿势自然，打破单一平面。</p>
+      <ul class="list-disc pl-6">
+        <li><strong>破脸面</strong>：
+          <ul class="list-circle pl-6">
+            <li><strong>侧脸</strong>：转头至侧面，突出轮廓美感。</li>
+            <li><strong>挡脸</strong>：用手、道具或头发部分遮挡，增加神秘感。</li>
+          </ul>
+        </li>
+        <li><strong>破胸面</strong>：
+          <ul class="list-circle pl-6">
+            <li><strong>叉腰</strong>：单手或双手叉腰，突出腰线，增强自信感。</li>
+            <li><strong>转身</strong>：身体侧转，打破正面僵硬感。</li>
+          </ul>
+        </li>
+        <li><strong>破腿面</strong>：
+          <ul class="list-circle pl-6">
+            <li><strong>踮脚</strong>：一脚或双脚踮起，拉长腿部线条。</li>
+            <li><strong>交叉</strong>：双腿交叉站立，增加优雅感。</li>
+          </ul>
+        </li>
+        <li><strong>破面意识</strong>：脸面、胸面、腿面不在同一平面上，增加立体感和动态美。</li>
+      </ul>
+      <p class="mt-2"><strong>贴士</strong>：观察模特动作，确保三面协调但不平行。</p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+      <h2 class="text-2xl font-semibold gradient-title flex items-center">
+        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2a10 10 0 100 20 10 10 0 000-20z"></path></svg>
+        2. 培养看线的眼光：头线、胸线、腿线
+      </h2>
+      <div class="divider">🌟</div>
+      <p><strong>核心</strong>：通过调整头线、胸线、腿线，保证姿势自然，打破直线僵硬感。</p>
+      <ul class="list-disc pl-6">
+        <li><strong>破头线</strong>：
+          <ul class="list-circle pl-6">
+            <li><strong>歪头</strong>：头部轻微倾斜，增加俏皮或柔和感。</li>
+          </ul>
+        </li>
+        <li><strong>破胸线</strong>：
+          <ul class="list-circle pl-6">
+            <li><strong>转身</strong>：身体侧转，展现曲线美。</li>
+            <li><strong>叉腰</strong>：双手叉腰，突出身形比例。</li>
+          </ul>
+        </li>
+        <li><strong>破腿线</strong>：
+          <ul class="list-circle pl-6">
+            <li><strong>踮脚</strong>：拉长腿部线条，显高显瘦。</li>
+            <li><strong>交叉</strong>：双腿交叉，增加优雅与动态感。</li>
+          </ul>
+        </li>
+        <li><strong>破线意识</strong>：头线、胸线、腿线不在同一直线，增强画面层次感。</li>
+      </ul>
+      <p class="mt-2"><strong>贴士</strong>：引导模特自然调整姿势，避免三线平行。</p>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+      <h2 class="text-2xl font-semibold gradient-title flex items-center">
+        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 10a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"></path></svg>
+        3. 线条高级
+      </h2>
+      <div class="divider">🌟</div>
+      <p><strong>核心</strong>：优化线条流畅性与完整性，打造高级感姿势。</p>
+      <ul class="list-disc pl-6">
+        <li><strong>线条流畅性</strong>：避免姿势僵硬或线条急转弯，确保动作自然顺畅。</li>
+        <li><strong>线条完整性</strong>：避免“缺胳膊少腿”（如手臂被身体遮挡），保持肢体完整可见。</li>
+        <li><strong>线条形态</strong>：
+          <ul class="list-circle pl-6">
+            <li><strong>S型</strong>：柔和、性感，适合女性人像，突出曲线美。</li>
+            <li><strong>三角形</strong>：气场强大，线条直硬，适合硬朗风格，强调力量感。</li>
+          </ul>
+        </li>
+        <li><strong>上紧下松/上松下紧</strong>：
+          <ul class="list-circle pl-6">
+            <li><strong>上紧下松</strong>：上半身挺直，下半身放松（如腿部交叉或微微弯曲），显优雅。</li>
+            <li><strong>上松下紧</strong>：上半身放松（如歪头、叉腰），下半身站直，显随性。</li>
+          </ul>
+        </li>
+      </ul>
+      <p class="mt-2"><strong>贴士</strong>：引导模特尝试 S 型或三角形姿势，结合场景突出风格。</p>
+    </div>
+
+    <p class="text-center text-lg mt-6">✨ 掌握点线面规律，拍出自然又高级的人像大片！📸</p>
+  </div>
+</body>
+</html>
