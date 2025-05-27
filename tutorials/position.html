@@ -31,7 +31,7 @@
     <!-- 动态导航栏 -->
     <div id="nav-container"></div>
     <script>
-      fetch('/nav.json')
+      fetch('/src/nav.json')
         .then(response => response.json())
         .then(data => {
           const nav = document.createElement('nav');
