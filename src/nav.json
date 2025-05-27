@@ -1,10 +1,10 @@
 {
 "menu": [
-  {"title": "首页", "url": "/public/index.html"},
-  {"title": "曝光三要素", "url": "/public/tutorials/exposure.html"},
-  {"title": "认识镜头", "url": "/public/tutorials/lens.html"},
-  {"title": "器材介绍", "url": "/public/tutorials/equipment.html"},
-  {"title": "拍摄机位", "url": "/public/tutorials/position.html"},
-  {"title": "人像美姿", "url": "/public/tutorials/pose.html"}
+  {"title": "首页", "url": "/index.html"},
+  {"title": "曝光三要素", "url": "/tutorials/exposure.html"},
+  {"title": "认识镜头", "url": "/tutorials/lens.html"},
+  {"title": "器材介绍", "url": "/tutorials/equipment.html"},
+  {"title": "拍摄机位", "url": "/tutorials/position.html"},
+  {"title": "人像美姿", "url": "/tutorials/pose.html"}
 ]
 }
