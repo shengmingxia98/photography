@@ -28,28 +28,14 @@
   <div class="container mx-auto p-4 max-w-3xl sm:max-w-xl">
 <div id="nav-container"></div>
 <script>
-  fetch('/src/nav.json')
-    .then(response => response.json())
-    .then(data => {
-      const navContainer = document.createElement('nav');
-      navContainer.className = 'main-nav';
-      const ul = document.createElement('ul');
-      ul.className = 'nav-list';
-      
-      data.forEach(item => {
-        const li = document.createElement('li');
-        const link = document.createElement('a');
-        link.href = item.url;
-        link.textContent = item.title;
-        link.className = 'nav-link';
-        li.appendChild(link);
-        ul.appendChild(li);
-      });
-
-      navContainer.appendChild(ul);
-      document.getElementById('dynamic-nav').appendChild(navContainer);
-    })
-    .catch(error => console.error('导航加载失败:', error));
+// 统一使用menu属性
+fetch('/src/nav.json')
+  .then(res => res.json())
+  .then(({ menu }) => {
+    document.querySelector('.sidebar').innerHTML = menu.map(item =>
+      `<a href="${item.url}">${item.title}</a>`
+    ).join('');
+  });
 </script>
     <h1 class="text-3xl font-bold text-center gradient-title mb-4">
       📸 摄影小白必看：曝光三要素 ✨
